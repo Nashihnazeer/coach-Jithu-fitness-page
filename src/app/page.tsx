@@ -227,22 +227,15 @@ const gymMembershipCards = [
 ];
 
 const heroGalleryPhotos = [
-  "FINA8017.JPG.jpeg",
-  "FINA8018.JPG.jpeg",
-  "FINA8019.JPG.jpeg",
-  "FINA8022.JPG.jpeg",
-  "FINA8027.JPG.jpeg",
-  "FINA8029.JPG.jpeg",
-  "FINA8031.JPG.jpeg",
+  "FINA8024.JPG.jpeg",
   "FINA8032.JPG.jpeg",
-  "FINA8035.JPG.jpeg",
-  "FINA8036.JPG.jpeg",
-  "FINA8041.JPG.jpeg",
-  "FINA8042.JPG.jpeg",
+  "FINA8037.JPG.jpeg",
   "FINA8045.JPG.jpeg",
   "FINA8046.JPG.jpeg",
   "FINA8051.JPG.jpeg",
-  "FINA8052.JPG.jpeg",
+  "WhatsApp Image 2026-0...at.jpeg",
+  "WhatsApp Image 2026-0...PM.jpeg",
+  "WhatsApp Image 2026-0...02.jpeg",
 ];
 
 const transformations = [
@@ -1053,41 +1046,17 @@ export default function Page() {
         /* COACH JITHU PHOTO GALLERY */
         .photo-gallery {
           overflow: hidden;
-          border-top: 1px solid var(--line);
-          border-bottom: 1px solid var(--line);
           background: #070707;
-        }
-
-        .photo-gallery-head {
-          padding: 28px 0 12px;
-        }
-
-        .photo-gallery-head-row {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 18px;
-        }
-
-        .photo-gallery-head-row .eyebrow {
-          margin-bottom: 0;
-        }
-
-        .gym-map-button {
-          flex: 0 0 auto;
-          min-height: 42px;
-          padding-inline: 14px;
-          font-size: 10px;
         }
 
         .photo-gallery-track {
           display: grid;
           grid-auto-flow: column;
-          grid-auto-columns: minmax(230px, 300px);
+          grid-auto-columns: minmax(300px, 420px);
           gap: 10px;
           overflow-x: auto;
           scrollbar-width: none;
-          padding: 0 0 18px;
+          padding: 18px 0;
           overscroll-behavior-inline: contain;
           scroll-behavior: auto;
           touch-action: pan-x;
@@ -1106,11 +1075,9 @@ export default function Page() {
         .photo-gallery-card {
           position: relative;
           min-width: 0;
-          height: 310px;
+          aspect-ratio: 16 / 9;
           overflow: hidden;
-          border: 1px solid var(--line);
-          border-radius: 8px;
-          background: #0c0c0c;
+          background: transparent;
         }
 
         .photo-gallery-card img {
@@ -1945,10 +1912,10 @@ export default function Page() {
           }
 
           .hero-person-picture {
-            right: 2%;
-            bottom: 2%;
-            width: min(60vw, 770px);
-            height: 104%;
+            right: 10%;
+            bottom: 3%;
+            width: min(46vw, 590px);
+            height: 89%;
           }
 
           .hero-content {
@@ -1963,11 +1930,11 @@ export default function Page() {
           }
 
           .hero-title {
-            font-size: clamp(58px, 6vw, 82px);
+            font-size: clamp(54px, 5.5vw, 76px);
           }
 
           .hero-text {
-            font-size: 15px;
+            font-size: 14px;
           }
 
           .hero-signature,
@@ -1981,20 +1948,15 @@ export default function Page() {
             padding: 82px 0;
           }
 
-          .photo-gallery-head {
-            padding-top: 34px;
-          }
-
-          .photo-gallery-track {
+.photo-gallery-track {
             grid-auto-columns: 300px;
             gap: 14px;
           }
 
           .photo-gallery-card {
-            height: 380px;
+            aspect-ratio: 16 / 9;
           }
-
-          .program-slider {
+.program-slider {
             grid-auto-columns: 310px;
             gap: 14px;
           }
@@ -2083,16 +2045,7 @@ export default function Page() {
 
         /* MOBILE FLOATING NAV */
         @media (max-width: 639px) {
-          .photo-gallery-head-row {
-            flex-wrap: wrap;
-            gap: 10px;
-          }
-
-          .photo-gallery-head-row .gym-map-button {
-            width: 100%;
-          }
-
-          .header {
+.header {
             top: 10px;
             width: calc(100% - 20px);
             height: 58px;
@@ -2457,20 +2410,6 @@ export default function Page() {
 
       {/* COACH JITHU PHOTO GALLERY — 30 PHOTOS */}
       <section className="photo-gallery" aria-label="Coach Jithu photo gallery">
-        <div className="container photo-gallery-head scroll-reveal">
-          <div className="photo-gallery-head-row">
-            <p className="eyebrow yellow">Coach Jithu&apos;s fitness target gym & studio</p>
-            <a
-              className="button outline gym-map-button"
-              href="https://share.google/ApWDdKE7zMXj1xwTx"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Gym on Google Maps <ArrowRight size={14} />
-            </a>
-          </div>
-        </div>
-
         <div
           ref={galleryScroller}
           className="photo-gallery-track"
@@ -2625,7 +2564,7 @@ export default function Page() {
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow yellow">Dietitian Consultation</p>
+              <p className="eyebrow yellow">Fitness Consultation</p>
               <h2 className="section-title">
                 Nutrition Support.
                 <br />
