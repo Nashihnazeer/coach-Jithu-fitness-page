@@ -790,17 +790,22 @@ export default function Page() {
             radial-gradient(circle at 76% 42%, rgba(255, 217, 0, 0.08), transparent 34%);
         }
 
-        .hero-person {
+        .hero-person-picture {
           position: absolute;
           z-index: 1;
           right: -2%;
           bottom: 0;
           width: min(58vw, 700px);
           height: 94%;
-          object-fit: contain;
-          object-position: bottom right;
           pointer-events: none;
           user-select: none;
+        }
+
+        .hero-person {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          object-position: bottom right;
         }
 
         .hero-content {
@@ -826,7 +831,7 @@ export default function Page() {
 
         .hero-title {
           margin: 0;
-          font-size: clamp(48px, 14vw, 100px);
+          font-size: clamp(42px, 11vw, 82px);
           line-height: 0.86;
           letter-spacing: -0.06em;
           font-weight: 950;
@@ -998,26 +1003,6 @@ export default function Page() {
           object-fit: cover;
           user-select: none;
           -webkit-user-drag: none;
-        }
-
-        .photo-gallery-meta {
-          position: absolute;
-          inset: auto 0 0;
-          padding: 32px 12px 11px;
-          background: linear-gradient(
-            180deg,
-            transparent 0%,
-            rgba(0, 0, 0, 0.84) 100%
-          );
-        }
-
-        .photo-gallery-name {
-          margin: 0;
-          color: rgba(255, 255, 255, 0.92);
-          font-size: 9px;
-          font-weight: 800;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
         }
 
         /* PROGRAMS — SINGLE SLIDER */
@@ -1716,11 +1701,11 @@ export default function Page() {
             align-items: center;
           }
 
-          .hero-person {
-            right: 18%;
-            bottom: -4%;
-            width: min(49vw, 625px);
-            height: 88%;
+          .hero-person-picture {
+            right: 2%;
+            bottom: 2%;
+            width: min(60vw, 770px);
+            height: 104%;
           }
 
           .hero-content {
@@ -1735,7 +1720,7 @@ export default function Page() {
           }
 
           .hero-title {
-            font-size: clamp(68px, 7vw, 100px);
+            font-size: clamp(58px, 6vw, 82px);
           }
 
           .hero-text {
@@ -1948,7 +1933,7 @@ export default function Page() {
             align-items: flex-start;
           }
 
-          .hero-person {
+          .hero-person-picture {
             left: 50%;
             right: auto;
             top: 70px;
@@ -1957,9 +1942,14 @@ export default function Page() {
             max-width: none;
             height: auto;
             transform: translateX(-50%);
+            opacity: 1;
+          }
+
+          .hero-person {
+            width: 100%;
+            height: auto;
             object-fit: contain;
             object-position: center top;
-            opacity: 1;
           }
 
           .hero-signature {
@@ -2105,7 +2095,7 @@ export default function Page() {
           <a className="brand brand-logo" href="#home" aria-label="Coach Jithu home">
             <img
               className="brand-logo-image"
-              src="/images/coachjithulogo.jpeg"
+              src="/images/coachjithulogo.PNG"
               alt="Coach Jithu"
             />
           </a>
@@ -2162,12 +2152,18 @@ export default function Page() {
 
       {/* HERO */}
       <section id="home" className="hero">
-        <img
-          className="hero-person"
-          src="/images/Coach.png"
-          alt="Coach Jithu"
-          draggable={false}
-        />
+        <picture className="hero-person-picture">
+          <source
+            media="(min-width: 900px)"
+            srcSet="/images/CoachJithudesktop.png"
+          />
+          <img
+            className="hero-person"
+            src="/images/CoachJithumobile.png"
+            alt="Coach Jithu"
+            draggable={false}
+          />
+        </picture>
 
         <div className="hero-signature" aria-hidden="true">
           Coach Jithu
@@ -2240,9 +2236,6 @@ export default function Page() {
                 loading={index < 6 ? "eager" : "lazy"}
                 draggable={false}
               />
-              <div className="photo-gallery-meta">
-                <p className="photo-gallery-name">{photo}</p>
-              </div>
             </article>
           ))}
         </div>
