@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
+  Check,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -17,6 +18,23 @@ import {
   Monitor,
   ShieldCheck,
 } from "lucide-react";
+
+function InstagramIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="2" />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
+      <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" />
+    </svg>
+  );
+}
 
 /**
  * Coach Jithu — single-page responsive landing page
@@ -36,83 +54,240 @@ import {
 
 const programCards = [
   {
-    title: "Online Personal Training",
-    description: "For clients anywhere in the world.",
+    title: "Basic",
+    price: "₹3,000",
+    description: "Personalised online fitness coaching for building a consistent training routine.",
+    features: [
+      "Personalised workout plan",
+      "Basic diet guidance",
+      "Weekly workout schedule",
+      "Progress tracking",
+      "General fitness guidance",
+      "WhatsApp support",
+    ],
     image:
       "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=900&q=85",
   },
   {
-    title: "Personal Training",
-    description: "1-to-1 coaching focused on individual goals.",
-    image:
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=85",
-  },
-  {
-    title: "Weight Loss",
-    description: "Structured training + lifestyle correction.",
-    image:
-      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85",
-  },
-  {
-    title: "Muscle Building",
-    description: "Progressive resistance training and nutrition strategy.",
+    title: "Standard",
+    price: "₹6,000",
+    description: "More detailed coaching with personalised nutrition, progress reviews and regular guidance.",
+    features: [
+      "Personalised workouts",
+      "Personalised diet plan",
+      "Weekly progress review",
+      "Workout plan updated based on progress",
+      "Exercise technique correction",
+      "Regular coach guidance",
+      "Weight & measurement tracking",
+      "WhatsApp support",
+      "Lifestyle & habit guidance",
+    ],
     image:
       "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=900&q=85",
   },
   {
-    title: "Lifestyle Transformation",
-    description: "Build sustainable fitness habits.",
+    title: "Premium",
+    price: "₹10,000",
+    description: "1-to-1 premium coaching designed for maximum results and complete fitness transformation.",
+    features: [
+      "Dedicated 1-to-1 online coaching",
+      "Fully customised workout & nutrition plan",
+      "Individual training schedule",
+      "Frequent progress monitoring",
+      "Detailed exercise form correction",
+      "Personalised adjustments based on lifestyle",
+      "Priority coach access",
+      "Accountability & motivation support",
+      "Monthly transformation assessment",
+      "Complete fitness transformation strategy",
+    ],
     image:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=85",
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85",
+  },
+];
+
+const gymMembershipCards = [
+  {
+    title: "Basic Package",
+    pricing: "₹1,000 without cardio / ₹2,000 with cardio",
+    highlight: "Best choice for affordable gym access",
+    subtitle: "Gym Access & Guidance",
+    features: [
+      "Full Gym Access",
+      "Access to Strength & Cardio Equipment*",
+      "Basic Workout Guidance",
+      "General Fitness Guidance",
+      "Progress Tracking",
+      "Flexible Membership Duration",
+    ],
   },
   {
-    title: "Kids / Couple Training",
-    description: "Specialised training for families and couples.",
-    image:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=85",
+    title: "Standard Package",
+    pricing: "₹2,000 without cardio / ₹2,500 with cardio",
+    highlight: "Most Popular",
+    subtitle: "Trainer Supervision",
+    features: [
+      "Everything in Basic Package",
+      "Trainer Supervision",
+      "Workout Routine",
+      "Exercise Form & Technique Correction",
+      "Sets, Reps & Rest-Time Guidance",
+      "Progressive Workout Planning",
+      "Regular Fitness Progress Monitoring",
+      "Training Modifications Based on Progress",
+      "Fat-Loss / Muscle-Building Guidance",
+    ],
   },
+  {
+    title: "Premium Package",
+    pricing: "₹2,800 without cardio / ₹3,300 with cardio",
+    highlight: "Result-focused complete package",
+    subtitle: "Workout & Diet Plan",
+    features: [
+      "Everything in Standard Package",
+      "Personalized Workout Plan",
+      "Personalized Diet Plan",
+      "Goal-Based Training Strategy",
+      "Weight Loss / Muscle Gain Guidance",
+      "Calorie & Portion Guidance",
+      "Regular Progress Tracking",
+      "Workout Adjustments Based on Results",
+      "Lifestyle & Fitness Guidance",
+      "Dedicated Trainer Support",
+    ],
+  },
+];
+
+const heroGalleryPhotos = [
+  "DSR_9504.JPG",
+  "DSR_9544.JPG",
+  "DSR_9585.JPG",
+  "FINA8017.JPG.jpeg",
+  "FINA8018.JPG.jpeg",
+  "FINA8019.JPG.jpeg",
+  "FINA8020.JPG.jpeg",
+  "FINA8021.JPG.jpeg",
+  "FINA8022.JPG.jpeg",
+  "FINA8024.JPG.jpeg",
+  "FINA8026.JPG.jpeg",
+  "FINA8027.JPG.jpeg",
+  "FINA8029.JPG.jpeg",
+  "FINA8031.JPG.jpeg",
+  "FINA8032.JPG.jpeg",
+  "FINA8035.JPG.jpeg",
+  "FINA8036.JPG.jpeg",
+  "FINA8037.JPG.jpeg",
+  "FINA8038.JPG.jpeg",
+  "FINA8039.JPG.jpeg",
+  "FINA8041.JPG.jpeg",
+  "FINA8042.JPG.jpeg",
+  "FINA8043.JPG.jpeg",
+  "FINA8045.JPG.jpeg",
+  "FINA8046.JPG.jpeg",
+  "FINA8047.JPG.jpeg",
+  "FINA8048.JPG.jpeg",
+  "FINA8050.JPG.jpeg",
+  "FINA8051.JPG.jpeg",
+  "FINA8052.JPG.jpeg",
 ];
 
 const transformations = [
   {
-    name: "Arjun",
-    result: "96 kg → 78 kg",
-    duration: "16 weeks",
-    program: "Weight Loss Program",
-    before:
-      "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=700&q=85",
-    after:
-      "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=700&q=85",
+    name: "Transformation 01",
+    result: "Before / After",
+    duration: "Transformation",
+    program: "Coach Jithu Fitness Coaching",
+    before: "/images/Before1.jpg",
+    after: "/images/After1.jpg",
   },
   {
-    name: "Sneha",
-    result: "86 kg → 54 kg",
-    duration: "16 weeks",
-    program: "Transformation Program",
-    before:
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=700&q=85",
-    after:
-      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=700&q=85",
+    name: "Transformation 02",
+    result: "Before / After",
+    duration: "Transformation",
+    program: "Coach Jithu Fitness Coaching",
+    before: "/images/Before2.jpg",
+    after: "/images/After2.jpg",
   },
   {
-    name: "Vishnu",
-    result: "62 kg → 74 kg",
-    duration: "20 weeks",
-    program: "Muscle Building Program",
-    before:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=700&q=85",
-    after:
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=700&q=85",
+    name: "Transformation 03",
+    result: "Before / After",
+    duration: "Transformation",
+    program: "Coach Jithu Fitness Coaching",
+    before: "/images/Before3.jpeg",
+    after: "/images/After3.jpeg",
   },
   {
-    name: "Riya",
-    result: "70 kg → 56 kg",
-    duration: "16 weeks",
-    program: "Lifestyle Transformation",
-    before:
-      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=700&q=85",
-    after:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=700&q=85",
+    name: "Transformation 04",
+    result: "Before / After",
+    duration: "Transformation",
+    program: "Coach Jithu Fitness Coaching",
+    before: "/images/Before4.jpeg",
+    after: "/images/After4.jpeg",
+  },
+  {
+    name: "Transformation 05",
+    result: "Before / After",
+    duration: "Transformation",
+    program: "Coach Jithu Fitness Coaching",
+    before: "/images/Before5.jpeg",
+    after: "/images/After5.jpeg",
+  },
+  {
+    name: "Transformation 06",
+    result: "Before / After",
+    duration: "Transformation",
+    program: "Coach Jithu Fitness Coaching",
+    before: "/images/Before6.jpg",
+    after: "/images/After6.jpg",
+  },
+  {
+    name: "Transformation 07",
+    result: "Before / After",
+    duration: "Transformation",
+    program: "Coach Jithu Fitness Coaching",
+    before: "/images/Before7.jpeg",
+    after: "/images/After7.jpeg",
+  },
+  {
+    name: "Transformation 08",
+    result: "Before / After",
+    duration: "Transformation",
+    program: "Coach Jithu Fitness Coaching",
+    before: "/images/Before8.jpeg",
+    after: "/images/After8.jpeg",
+  },
+  {
+    name: "Transformation 10",
+    result: "Before / After",
+    duration: "Transformation",
+    program: "Coach Jithu Fitness Coaching",
+    before: "/images/Before10.jpeg",
+    after: "/images/After10.jpg",
+  },
+  {
+    name: "Transformation 11",
+    result: "Before / After",
+    duration: "Transformation",
+    program: "Coach Jithu Fitness Coaching",
+    before: "/images/Before11.jpeg",
+    after: "/images/After11.jpg",
+  },
+  {
+    name: "Transformation 12",
+    result: "Before / After",
+    duration: "Transformation",
+    program: "Coach Jithu Fitness Coaching",
+    before: "/images/Before12.jpg",
+    after: "/images/After12.jpg",
+  },
+  {
+    name: "Transformation 13",
+    result: "Before / After",
+    duration: "Transformation",
+    program: "Coach Jithu Fitness Coaching",
+    before: "/images/Before13.jpeg",
+    after: "/images/After13.jpeg",
   },
 ];
 
@@ -197,8 +372,62 @@ const faqs = [
 
 export default function Page() {
   const programScroller = useRef<HTMLDivElement>(null);
+  const galleryScroller = useRef<HTMLDivElement>(null);
+  const galleryDirectionRef = useRef<1 | -1>(1);
+  const galleryFrameRef = useRef<number | null>(null);
+  const galleryLastTimeRef = useRef(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showAllTransformations, setShowAllTransformations] = useState(false);
+
+  useEffect(() => {
+    const scroller = galleryScroller.current;
+    if (!scroller) return;
+
+    // Continuous movement, roughly one card per second. The native horizontal
+    // scrolling remains available for touch, mouse and trackpad interaction.
+    const pixelsPerSecond = 72;
+
+    const animate = (time: number) => {
+      if (!galleryLastTimeRef.current) {
+        galleryLastTimeRef.current = time;
+      }
+
+      const deltaSeconds = Math.min(
+        0.05,
+        (time - galleryLastTimeRef.current) / 1000,
+      );
+      galleryLastTimeRef.current = time;
+
+      const maxScroll = Math.max(
+        0,
+        scroller.scrollWidth - scroller.clientWidth,
+      );
+
+      if (maxScroll > 0) {
+        if (scroller.scrollLeft >= maxScroll - 1) {
+          galleryDirectionRef.current = -1;
+        } else if (scroller.scrollLeft <= 1) {
+          galleryDirectionRef.current = 1;
+        }
+
+        scroller.scrollLeft +=
+          galleryDirectionRef.current * pixelsPerSecond * deltaSeconds;
+      }
+
+      galleryFrameRef.current = requestAnimationFrame(animate);
+    };
+
+    galleryFrameRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (galleryFrameRef.current !== null) {
+        cancelAnimationFrame(galleryFrameRef.current);
+      }
+      galleryFrameRef.current = null;
+      galleryLastTimeRef.current = 0;
+    };
+  }, []);
 
   const scrollPrograms = (direction: "left" | "right") => {
     programScroller.current?.scrollBy({
@@ -450,6 +679,31 @@ export default function Page() {
           color: var(--yellow);
         }
 
+        .header-actions {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .nav-instagram {
+          width: 42px;
+          height: 42px;
+          display: grid;
+          place-items: center;
+          flex: 0 0 auto;
+          border: 1px solid rgba(255, 255, 255, 0.32);
+          border-radius: 5px;
+          color: white;
+          text-decoration: none;
+          transition: 160ms ease;
+        }
+
+        .nav-instagram:hover {
+          border-color: var(--yellow);
+          color: var(--yellow);
+          transform: translateY(-2px);
+        }
+
         .mobile-menu {
           display: grid;
           place-items: center;
@@ -641,6 +895,98 @@ export default function Page() {
           color: #c7aa00;
         }
 
+        /* COACH JITHU PHOTO GALLERY */
+        .photo-gallery {
+          overflow: hidden;
+          border-top: 1px solid var(--line);
+          border-bottom: 1px solid var(--line);
+          background: #070707;
+        }
+
+        .photo-gallery-head {
+          padding: 28px 0 12px;
+        }
+
+        .photo-gallery-head-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 18px;
+        }
+
+        .photo-gallery-head-row .eyebrow {
+          margin-bottom: 0;
+        }
+
+        .gym-map-button {
+          flex: 0 0 auto;
+          min-height: 42px;
+          padding-inline: 14px;
+          font-size: 10px;
+        }
+
+        .photo-gallery-track {
+          display: grid;
+          grid-auto-flow: column;
+          grid-auto-columns: minmax(230px, 300px);
+          gap: 10px;
+          overflow-x: auto;
+          scrollbar-width: none;
+          padding: 0 0 18px;
+          overscroll-behavior-inline: contain;
+          scroll-behavior: auto;
+          touch-action: pan-x;
+          cursor: grab;
+          user-select: none;
+        }
+
+        .photo-gallery-track:active {
+          cursor: grabbing;
+        }
+
+        .photo-gallery-track::-webkit-scrollbar {
+          display: none;
+        }
+
+        .photo-gallery-card {
+          position: relative;
+          min-width: 0;
+          height: 310px;
+          overflow: hidden;
+          border: 1px solid var(--line);
+          border-radius: 8px;
+          background: #0c0c0c;
+        }
+
+        .photo-gallery-card img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+          user-select: none;
+          -webkit-user-drag: none;
+        }
+
+        .photo-gallery-meta {
+          position: absolute;
+          inset: auto 0 0;
+          padding: 32px 12px 11px;
+          background: linear-gradient(
+            180deg,
+            transparent 0%,
+            rgba(0, 0, 0, 0.84) 100%
+          );
+        }
+
+        .photo-gallery-name {
+          margin: 0;
+          color: rgba(255, 255, 255, 0.92);
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+        }
+
         /* PROGRAMS — SINGLE SLIDER */
         .program-slider-wrap {
           position: relative;
@@ -673,35 +1019,159 @@ export default function Page() {
 
         .program-image {
           width: 100%;
-          aspect-ratio: 1.25 / 1;
+          aspect-ratio: 1.35 / 1;
           object-fit: cover;
         }
 
         .program-body {
-          min-height: 188px;
+          min-height: 360px;
           display: flex;
           flex-direction: column;
-          padding: 14px;
+          padding: 16px;
         }
 
         .program-title {
           margin: 0;
-          font-size: 18px;
-          line-height: 1.02;
+          font-size: 22px;
+          line-height: 1;
           letter-spacing: -0.035em;
+          font-weight: 950;
+          text-transform: uppercase;
+        }
+
+        .program-price {
+          margin: 6px 0 0;
+          color: var(--yellow);
+          font-size: 20px;
           font-weight: 950;
         }
 
         .program-description {
-          margin: 8px 0 14px;
+          margin: 9px 0 14px;
           color: var(--muted);
-          font-size: 13px;
+          font-size: 12px;
           line-height: 1.45;
+        }
+
+        .program-features {
+          display: grid;
+          gap: 7px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        .program-feature {
+          display: grid;
+          grid-template-columns: 16px 1fr;
+          gap: 7px;
+          align-items: start;
+          color: #deded8;
+          font-size: 11px;
+          line-height: 1.38;
+        }
+
+        .program-feature svg {
+          width: 15px;
+          height: 15px;
+          margin-top: 1px;
+          color: var(--yellow);
         }
 
         .program-body .button {
           width: 100%;
-          margin-top: auto;
+          margin-top: 18px;
+        }
+
+        /* GYM MEMBERSHIP */
+        .gym-grid {
+          display: grid;
+          gap: 12px;
+        }
+
+        .gym-card {
+          display: flex;
+          flex-direction: column;
+          padding: 18px;
+          border: 1px solid var(--line);
+          border-radius: 8px;
+          background: #0b0b0b;
+        }
+
+        .gym-card.popular {
+          border-color: rgba(255, 217, 0, 0.72);
+        }
+
+        .gym-card-top {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 14px;
+        }
+
+        .gym-card-title {
+          margin: 0;
+          font-size: 21px;
+          line-height: 1;
+          font-weight: 950;
+          text-transform: uppercase;
+        }
+
+        .gym-card-subtitle {
+          margin: 6px 0 0;
+          color: var(--muted);
+          font-size: 12px;
+          line-height: 1.35;
+        }
+
+        .gym-badge {
+          flex: 0 0 auto;
+          max-width: 130px;
+          padding: 6px 8px;
+          border: 1px solid rgba(255, 217, 0, 0.55);
+          border-radius: 4px;
+          color: var(--yellow);
+          font-size: 8px;
+          line-height: 1.1;
+          font-weight: 950;
+          text-align: center;
+          text-transform: uppercase;
+        }
+
+        .gym-pricing {
+          margin: 18px 0 16px;
+          padding: 12px;
+          border-top: 1px solid var(--line);
+          border-bottom: 1px solid var(--line);
+          color: #f1f1ea;
+          font-size: 13px;
+          line-height: 1.45;
+          font-weight: 800;
+        }
+
+        .gym-features {
+          display: grid;
+          gap: 8px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        .gym-feature {
+          display: grid;
+          grid-template-columns: 17px 1fr;
+          gap: 7px;
+          align-items: start;
+          color: #d7d7d0;
+          font-size: 12px;
+          line-height: 1.42;
+        }
+
+        .gym-feature svg {
+          width: 15px;
+          height: 15px;
+          margin-top: 1px;
+          color: var(--yellow);
         }
 
         .slider-controls {
@@ -713,6 +1183,10 @@ export default function Page() {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 10px;
+        }
+
+        .transform-grid:not(.show-all) .transform-card:nth-child(n + 5) {
+          display: none;
         }
 
         .transform-card {
@@ -787,6 +1261,10 @@ export default function Page() {
           color: var(--muted);
           font-size: 10px;
           line-height: 1.35;
+        }
+
+        .transform-view-all {
+          border-radius: 3px;
         }
 
         /* HOW IT WORKS */
@@ -1241,13 +1719,35 @@ export default function Page() {
             padding: 82px 0;
           }
 
+          .photo-gallery-head {
+            padding-top: 34px;
+          }
+
+          .photo-gallery-track {
+            grid-auto-columns: 300px;
+            gap: 14px;
+          }
+
+          .photo-gallery-card {
+            height: 380px;
+          }
+
           .program-slider {
-            grid-auto-columns: 250px;
+            grid-auto-columns: 310px;
             gap: 14px;
           }
 
           .program-card {
             border-radius: 6px;
+          }
+
+          .gym-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+          }
+
+          .gym-card {
+            min-height: 100%;
           }
 
           .slider-controls {
@@ -1312,6 +1812,15 @@ export default function Page() {
 
         /* MOBILE FLOATING NAV */
         @media (max-width: 639px) {
+          .photo-gallery-head-row {
+            flex-wrap: wrap;
+            gap: 10px;
+          }
+
+          .photo-gallery-head-row .gym-map-button {
+            width: 100%;
+          }
+
           .header {
             top: 10px;
             width: calc(100% - 20px);
@@ -1329,6 +1838,11 @@ export default function Page() {
             font-size: 10px;
           }
 
+          .nav-instagram {
+            width: 38px;
+            height: 38px;
+          }
+
           .mobile-menu {
             width: 38px;
             height: 38px;
@@ -1336,6 +1850,15 @@ export default function Page() {
         }
 
         @media (max-width: 899px) {
+          .photo-gallery-head-row {
+            align-items: flex-start;
+          }
+
+          .gym-map-button {
+            min-height: 40px;
+            padding-inline: 11px;
+          }
+
           .mobile-menu-panel {
             position: fixed;
             z-index: 1001;
@@ -1549,10 +2072,19 @@ export default function Page() {
             <a href="#transformations">Transformations</a>
             <a href="#process">How It Works</a>
             <a href="#testimonials">Testimonials</a>
-            <a href="#faq">Contact</a>
+            <a href="#contact">Contact</a>
           </nav>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div className="header-actions">
+            <a
+              className="nav-instagram"
+              href="https://www.instagram.com/coach.jithu?igsi=MnU1dXlkMW9jNjFh"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram - Coach Jithu"
+            >
+              <InstagramIcon size={18} />
+            </a>
             <a className="button" href="#contact">
               Join Now <ArrowRight size={15} />
             </a>
@@ -1580,7 +2112,7 @@ export default function Page() {
         <a href="#transformations" onClick={() => setMobileMenuOpen(false)}>Transformations</a>
         <a href="#process" onClick={() => setMobileMenuOpen(false)}>How It Works</a>
         <a href="#testimonials" onClick={() => setMobileMenuOpen(false)}>Testimonials</a>
-        <a href="#faq" onClick={() => setMobileMenuOpen(false)}>Contact</a>
+        <a href="#contact" onClick={() => setMobileMenuOpen(false)}>Contact</a>
       </nav>
 
       {/* HERO */}
@@ -1630,61 +2162,44 @@ export default function Page() {
         </div>
       </section>
 
-      {/* PROGRAMS — ONLY ONE PROGRAM SECTION */}
-      <section id="programs" className="light-section">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <p className="eyebrow">What I Offer</p>
-              <h2 className="section-title">My Programs</h2>
-              <p className="section-copy">
-                Choose the right program for your goals. Online or at the gym —
-                I&apos;ve got you covered.
-              </p>
-            </div>
-            <div className="slider-controls" aria-label="Program carousel controls">
-              <button
-                className="icon-button"
-                type="button"
-                aria-label="Previous programs"
-                onClick={() => scrollPrograms("left")}
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <button
-                className="icon-button"
-                type="button"
-                aria-label="Next programs"
-                onClick={() => scrollPrograms("right")}
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
+      {/* COACH JITHU PHOTO GALLERY — 30 PHOTOS */}
+      <section className="photo-gallery" aria-label="Coach Jithu photo gallery">
+        <div className="container photo-gallery-head">
+          <div className="photo-gallery-head-row">
+            <p className="eyebrow yellow">Coach Jithu Gym</p>
+            <a
+              className="button outline gym-map-button"
+              href="https://share.google/ApWDdKE7zMXj1xwTx"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Gym on Google Maps <ArrowRight size={14} />
+            </a>
           </div>
+        </div>
 
-          <div
-            ref={programScroller}
-            className="program-slider"
-            aria-label="Programs carousel"
-          >
-            {programCards.map((program) => (
-              <article className="program-card" key={program.title}>
-                <img
-                  className="program-image"
-                  src={program.image}
-                  alt={program.title}
-                  loading="lazy"
-                />
-                <div className="program-body">
-                  <h3 className="program-title">{program.title}</h3>
-                  <p className="program-description">{program.description}</p>
-                  <a className="button" href="#contact">
-                    Learn More <ArrowRight size={15} />
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
+        <div
+          ref={galleryScroller}
+          className="photo-gallery-track"
+          aria-label="Coach Jithu photo carousel"
+        >
+          {heroGalleryPhotos.map((photo, index) => (
+            <article
+              className="photo-gallery-card"
+              data-gallery-card
+              key={`${photo}-${index}`}
+            >
+              <img
+                src={`/images/${photo}`}
+                alt={`Coach Jithu fitness gallery photo ${index + 1}`}
+                loading={index < 6 ? "eager" : "lazy"}
+                draggable={false}
+              />
+              <div className="photo-gallery-meta">
+                <p className="photo-gallery-name">{photo}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -1700,15 +2215,12 @@ export default function Page() {
                 Real Results.
               </h2>
               <p className="section-copy">
-                These are real stories of commitment, consistency and change.
+                Before-and-after results from Coach Jithu&apos;s transformation programs.
               </p>
             </div>
-            <a className="section-link" href="#contact">
-              View all transformations <ArrowRight size={15} />
-            </a>
           </div>
 
-          <div className="transform-grid">
+          <div className={`transform-grid ${showAllTransformations ? "show-all" : ""}`}>
             {transformations.map((item) => (
               <article className="transform-card" key={item.name}>
                 <div className="before-after">
@@ -1732,10 +2244,137 @@ export default function Page() {
           </div>
 
           <div style={{ marginTop: 18, textAlign: "center" }}>
-            <a className="button outline" href="#contact">
-              View All Transformations <ArrowRight size={15} />
-            </a>
+            <button
+              className="button outline transform-view-all"
+              type="button"
+              onClick={() => setShowAllTransformations((open) => !open)}
+              aria-expanded={showAllTransformations}
+            >
+              {showAllTransformations ? "Hide" : "View All Transformations"}
+            </button>
           </div>
+        </div>
+      </section>
+
+      {/* ONLINE FITNESS PROGRAMS — SINGLE PROGRAM SLIDER */}
+      <section id="programs" className="light-section">
+        <div className="container">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow yellow">Online Fitness Training</p>
+              <h2 className="section-title">My Programs</h2>
+              <p className="section-copy">
+                Personalised online fitness coaching with structured workouts,
+                nutrition guidance, progress tracking and coach support.
+              </p>
+            </div>
+            <div className="slider-controls" aria-label="Online program carousel controls">
+              <button
+                className="icon-button"
+                type="button"
+                aria-label="Previous online programs"
+                onClick={() => scrollPrograms("left")}
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button
+                className="icon-button"
+                type="button"
+                aria-label="Next online programs"
+                onClick={() => scrollPrograms("right")}
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+          </div>
+
+          <div
+            ref={programScroller}
+            className="program-slider"
+            aria-label="Online fitness programs carousel"
+          >
+            {programCards.map((program) => (
+              <article className="program-card" key={program.title}>
+                <img
+                  className="program-image"
+                  src={program.image}
+                  alt={`${program.title} online fitness program`}
+                  loading="lazy"
+                />
+                <div className="program-body">
+                  <h3 className="program-title">{program.title}</h3>
+                  <p className="program-price">{program.price}</p>
+                  <p className="program-description">{program.description}</p>
+
+                  <ul className="program-features">
+                    {program.features.map((feature) => (
+                      <li className="program-feature" key={feature}>
+                        <Check aria-hidden="true" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <a className="button" href="#contact">
+                    Join This Program <ArrowRight size={15} />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GYM MEMBERSHIP PROGRAMS */}
+      <section id="gym-membership" className="soft-section">
+        <div className="container">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow yellow">Gym Membership Programs</p>
+              <h2 className="section-title">
+                Train at the Gym.
+                <br />
+                Choose Your Package.
+              </h2>
+              <p className="section-copy">
+                Membership options covering gym access, trainer supervision,
+                workout planning and diet support.
+              </p>
+            </div>
+          </div>
+
+          <div className="gym-grid">
+            {gymMembershipCards.map((plan) => (
+              <article
+                className={`gym-card ${plan.highlight === "Most Popular" ? "popular" : ""}`}
+                key={plan.title}
+              >
+                <div className="gym-card-top">
+                  <div>
+                    <h3 className="gym-card-title">{plan.title}</h3>
+                    <p className="gym-card-subtitle">{plan.subtitle}</p>
+                  </div>
+                  <span className="gym-badge">{plan.highlight}</span>
+                </div>
+
+                <p className="gym-pricing">{plan.pricing}</p>
+
+                <ul className="gym-features">
+                  {plan.features.map((feature) => (
+                    <li className="gym-feature" key={feature}>
+                      <Check aria-hidden="true" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
+          <p className="section-copy" style={{ marginTop: 18, maxWidth: 760 }}>
+            Premium package is ideal for fat loss, muscle building, body
+            transformation and lifestyle correction.
+          </p>
         </div>
       </section>
 
@@ -1901,12 +2540,23 @@ export default function Page() {
           </div>
 
           <div className="cta-actions">
-            <a className="button dark" href="https://wa.me/919876543210">
-              Start Your Transformation <ArrowRight size={16} />
-            </a>
-            <a className="button outline" href="https://wa.me/919876543210">
+            <a
+              className="button outline"
+              href="https://wa.me/919947324091"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <MessageCircle size={17} />
               WhatsApp Coach Jithu
+            </a>
+            <a
+              className="button dark"
+              href="https://www.instagram.com/coach.jithu?igsi=MnU1dXlkMW9jNjFh"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <InstagramIcon size={17} />
+              Instagram
             </a>
           </div>
         </div>
@@ -1931,12 +2581,18 @@ export default function Page() {
               <a href="#transformations">Transformations</a>
               <a href="#process">How It Works</a>
               <a href="#testimonials">Testimonials</a>
-              <a href="#faq">Contact</a>
+              <a href="#contact">Contact</a>
             </nav>
 
             <div className="socials" aria-label="Social links">
-              <a className="social-link" href="#" aria-label="Instagram">
-                IG
+              <a
+                className="social-link"
+                href="https://www.instagram.com/coach.jithu?igsi=MnU1dXlkMW9jNjFh"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram - Coach Jithu"
+              >
+                <InstagramIcon size={16} />
               </a>
               <a className="social-link" href="#" aria-label="Video channel">
                 <Play size={16} />
@@ -1953,7 +2609,7 @@ export default function Page() {
 
       <a
         className="whatsapp"
-        href="https://wa.me/919876543210"
+        href="https://wa.me/919947324091"
         aria-label="WhatsApp Coach Jithu"
       >
         <MessageCircle size={27} />
