@@ -452,6 +452,42 @@ export default function Page() {
   }, [mobileMenuOpen]);
 
   useEffect(() => {
+    const revealItems = Array.from(
+      document.querySelectorAll<HTMLElement>(".scroll-reveal")
+    );
+
+    if (revealItems.length === 0) return;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (reducedMotion) {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -50px 0px",
+      }
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const scroller = galleryScroller.current;
     if (!scroller) return;
 
@@ -552,6 +588,34 @@ export default function Page() {
         img {
           display: block;
           max-width: 100%;
+        }
+
+        .scroll-reveal {
+          opacity: 0;
+          transform: translate3d(0, 42px, 0);
+          transition:
+            opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+            transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+          will-change: opacity, transform;
+        }
+
+        .scroll-reveal.is-visible {
+          opacity: 1;
+          transform: translate3d(0, 0, 0);
+        }
+
+        .scroll-reveal:nth-child(2) { transition-delay: 70ms; }
+        .scroll-reveal:nth-child(3) { transition-delay: 140ms; }
+        .scroll-reveal:nth-child(4) { transition-delay: 210ms; }
+        .scroll-reveal:nth-child(5) { transition-delay: 280ms; }
+        .scroll-reveal:nth-child(6) { transition-delay: 350ms; }
+
+        @media (prefers-reduced-motion: reduce) {
+          .scroll-reveal {
+            opacity: 1;
+            transform: none;
+            transition: none;
+          }
         }
 
         .site {
@@ -2366,7 +2430,7 @@ export default function Page() {
           tomorrow.
         </div>
 
-        <div className="hero-content">
+        <div className="hero-content scroll-reveal is-visible">
           <div className="hero-copy">
             <p className="hero-kicker">Coach Jithu · Fitness Coaching</p>
             <h1 className="hero-title">
@@ -2393,7 +2457,7 @@ export default function Page() {
 
       {/* COACH JITHU PHOTO GALLERY — 30 PHOTOS */}
       <section className="photo-gallery" aria-label="Coach Jithu photo gallery">
-        <div className="container photo-gallery-head">
+        <div className="container photo-gallery-head scroll-reveal">
           <div className="photo-gallery-head-row">
             <p className="eyebrow yellow">Coach Jithu&apos;s fitness target gym & studio</p>
             <a
@@ -2430,7 +2494,7 @@ export default function Page() {
       </section>
 
       {/* TRANSFORMATIONS — 2 CARDS PER ROW ON MOBILE, NO IMAGE SLIDER */}
-      <section id="transformations" className="soft-section">
+      <section id="transformations" className="scroll-reveal soft-section">
         <div className="container">
           <div className="section-head">
             <div>
@@ -2448,7 +2512,7 @@ export default function Page() {
 
           <div className={`transform-grid ${showAllTransformations ? "show-all" : ""}`}>
             {transformations.map((item) => (
-              <article className="transform-card" key={item.name}>
+              <article className="transform-card scroll-reveal" key={item.name}>
                 <div className="before-after">
                   <div className="ba-half">
                     <span className="ba-label">Before</span>
@@ -2520,7 +2584,7 @@ export default function Page() {
             aria-label="Online fitness programs carousel"
           >
             {programCards.map((program) => (
-              <article className="program-card" key={program.title}>
+              <article className="program-card scroll-reveal" key={program.title}>
                 <img
                   className="program-image"
                   src={program.image}
@@ -2576,7 +2640,7 @@ export default function Page() {
 
           <div className="dietitian-grid">
             {dietitianCards.map((plan) => (
-              <article className={`dietitian-card ${plan.highlight ? "recommended" : ""}`} key={plan.title}>
+              <article className={`dietitian-card scroll-reveal ${plan.highlight ? "recommended" : ""}`} key={plan.title}>
                 <div className="dietitian-image-wrap">
                   <img
                     className="dietitian-image"
@@ -2617,7 +2681,7 @@ export default function Page() {
       </section>
 
       {/* GYM MEMBERSHIP PROGRAMS */}
-      <section id="gym-membership" className="soft-section">
+      <section id="gym-membership" className="soft-section scroll-reveal">
         <div className="container">
           <div className="section-head">
             <div>
@@ -2637,7 +2701,7 @@ export default function Page() {
           <div className="gym-grid">
             {gymMembershipCards.map((plan) => (
               <article
-                className={`gym-card ${plan.highlight === "Most Popular" ? "popular" : ""}`}
+                className={`gym-card scroll-reveal ${plan.highlight === "Most Popular" ? "popular" : ""}`}
                 key={plan.title}
               >
                 <div className="gym-image-wrap">
@@ -2688,7 +2752,7 @@ export default function Page() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="process" className="dark-section">
+      <section id="process" className="dark-section scroll-reveal">
         <div className="container">
           <div className="section-head">
             <div>
@@ -2707,7 +2771,7 @@ export default function Page() {
 
           <div className="process-grid">
             {steps.map((step) => (
-              <div className="step" key={step.number}>
+              <div className="step scroll-reveal" key={step.number}>
                 <div className="step-number">{step.number}</div>
                 <div className="step-card">
                   <h3>{step.title}</h3>
@@ -2720,7 +2784,7 @@ export default function Page() {
       </section>
 
       {/* WHY CHOOSE */}
-      <section className="dark-section" style={{ paddingTop: 0 }}>
+      <section className="dark-section scroll-reveal" style={{ paddingTop: 0 }}>
         <div className="container">
           <div className="section-head">
             <div>
@@ -2739,7 +2803,7 @@ export default function Page() {
 
           <div className="strength-grid">
             {strengths.map(({ title, icon: Icon }) => (
-              <article className="strength-card" key={title}>
+              <article className="strength-card scroll-reveal" key={title}>
                 <Icon className="strength-icon" strokeWidth={1.8} />
                 <p className="strength-title">{title}</p>
               </article>
@@ -2749,7 +2813,7 @@ export default function Page() {
       </section>
 
       {/* GOOGLE-STYLE REVIEWS ONLY */}
-      <section id="testimonials" className="light-section">
+      <section id="testimonials" className="light-section scroll-reveal">
         <div className="container">
           <div className="section-head">
             <div>
@@ -2764,7 +2828,7 @@ export default function Page() {
 
           <div className="reviews-grid">
             {reviews.map((review) => (
-              <article className="review-card" key={review.name}>
+              <article className="review-card scroll-reveal" key={review.name}>
                 <div className="review-top">
                   <div className="review-avatar">{review.initials}</div>
                   <div>
@@ -2810,7 +2874,7 @@ export default function Page() {
             {faqs.map((question, index) => {
               const isOpen = openFaq === index;
               return (
-                <div className="faq-item" key={question}>
+                <div className="faq-item scroll-reveal" key={question}>
                   <button
                     className="faq-button"
                     type="button"
@@ -2835,7 +2899,7 @@ export default function Page() {
       </section>
 
       {/* FINAL CTA */}
-      <section id="contact" className="final-cta">
+      <section id="contact" className="scroll-reveal final-cta">
         <div className="container final-cta-inner">
           <div>
             <p className="eyebrow" style={{ color: "#111" }}>
