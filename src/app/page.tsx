@@ -36,6 +36,12 @@ function InstagramIcon({ size = 18 }: { size?: number }) {
   );
 }
 
+const WHATSAPP_NUMBER = "919947324091";
+
+const whatsappLink = (message: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+
 /**
  * Coach Jithu — single-page responsive landing page
  * -------------------------------------------------
@@ -56,6 +62,8 @@ const programCards = [
   {
     title: "Basic",
     price: "₹3,000",
+    whatsappMessage:
+      "Hi Coach Jithu, I’m interested in the Basic online fitness program priced at ₹3,000. Please share the next steps.",
     description: "Personalised online fitness coaching for building a consistent training routine.",
     features: [
       "Personalised workout plan",
@@ -71,6 +79,8 @@ const programCards = [
   {
     title: "Standard",
     price: "₹6,000",
+    whatsappMessage:
+      "Hi Coach Jithu, I’m interested in the Standard online fitness program priced at ₹6,000. Please share the next steps.",
     description: "More detailed coaching with personalised nutrition, progress reviews and regular guidance.",
     features: [
       "Personalised workouts",
@@ -89,6 +99,8 @@ const programCards = [
   {
     title: "Premium",
     price: "₹10,000",
+    whatsappMessage:
+      "Hi Coach Jithu, I’m interested in the Premium online fitness program priced at ₹10,000. Please share the next steps.",
     description: "1-to-1 premium coaching designed for maximum results and complete fitness transformation.",
     features: [
       "Dedicated 1-to-1 online coaching",
@@ -107,9 +119,56 @@ const programCards = [
   },
 ];
 
+const dietitianCards = [
+  {
+    title: "Consultation Only",
+    price: "₹499",
+    whatsappMessage:
+      "Hi Coach Jithu, I’m interested in the Consultation Only dietitian package priced at ₹499. Please share the booking details.",
+    image: "/images/IMG-20260708-WA0009.jpeg",
+    features: [
+      "30–45 minute 1-on-1 consultation",
+      "Nutrition & lifestyle assessment",
+      "Goal setting",
+      "Basic nutrition recommendations",
+    ],
+  },
+  {
+    title: "Personalized Diet Plan",
+    price: "₹999",
+    whatsappMessage:
+      "Hi Coach Jithu, I’m interested in the Personalized Diet Plan package priced at ₹999. Please share the booking details.",
+    image: "/images/DSR_9585.JPG",
+    features: [
+      "Detailed personalized diet plan",
+      "Calorie & protein requirements",
+      "Kerala/Indian food options",
+      "Meal timings & portion guidance",
+      "Food substitutions",
+    ],
+  },
+  {
+    title: "Consultation + Diet Plan",
+    price: "₹1,499",
+    whatsappMessage:
+      "Hi Coach Jithu, I’m interested in the Consultation + Diet Plan package priced at ₹1,499. Please share the booking details.",
+    image: "/images/file_0000000031207209b9a70abca5434cf5.png",
+    highlight: "Recommended",
+    features: [
+      "1-on-1 dietitian consultation",
+      "Complete personalized diet plan",
+      "Calorie & macro calculation",
+      "Food preferences considered",
+      "Meal alternatives & substitutions",
+      "Follow-up guidance",
+    ],
+  },
+];
+
 const gymMembershipCards = [
   {
     title: "Basic Package",
+    image: "/images/FINA8017.JPG.jpeg",
     pricing: "₹1,000 without cardio / ₹2,000 with cardio",
     highlight: "Best choice for affordable gym access",
     subtitle: "Gym Access & Guidance",
@@ -124,6 +183,7 @@ const gymMembershipCards = [
   },
   {
     title: "Standard Package",
+    image: "/images/FINA8018.JPG.jpeg",
     pricing: "₹2,000 without cardio / ₹2,500 with cardio",
     highlight: "Most Popular",
     subtitle: "Trainer Supervision",
@@ -141,6 +201,7 @@ const gymMembershipCards = [
   },
   {
     title: "Premium Package",
+    image: "/images/FINA8019.JPG.jpeg",
     pricing: "₹2,800 without cardio / ₹3,300 with cardio",
     highlight: "Result-focused complete package",
     subtitle: "Workout & Diet Plan",
@@ -160,34 +221,20 @@ const gymMembershipCards = [
 ];
 
 const heroGalleryPhotos = [
-  "DSR_9504.JPG",
-  "DSR_9544.JPG",
-  "DSR_9585.JPG",
   "FINA8017.JPG.jpeg",
   "FINA8018.JPG.jpeg",
   "FINA8019.JPG.jpeg",
-  "FINA8020.JPG.jpeg",
-  "FINA8021.JPG.jpeg",
   "FINA8022.JPG.jpeg",
-  "FINA8024.JPG.jpeg",
-  "FINA8026.JPG.jpeg",
   "FINA8027.JPG.jpeg",
   "FINA8029.JPG.jpeg",
   "FINA8031.JPG.jpeg",
   "FINA8032.JPG.jpeg",
   "FINA8035.JPG.jpeg",
   "FINA8036.JPG.jpeg",
-  "FINA8037.JPG.jpeg",
-  "FINA8038.JPG.jpeg",
-  "FINA8039.JPG.jpeg",
   "FINA8041.JPG.jpeg",
   "FINA8042.JPG.jpeg",
-  "FINA8043.JPG.jpeg",
   "FINA8045.JPG.jpeg",
   "FINA8046.JPG.jpeg",
-  "FINA8047.JPG.jpeg",
-  "FINA8048.JPG.jpeg",
-  "FINA8050.JPG.jpeg",
   "FINA8051.JPG.jpeg",
   "FINA8052.JPG.jpeg",
 ];
@@ -197,7 +244,7 @@ const transformations = [
     name: "Transformation 01",
     result: "Before / After",
     duration: "Transformation",
-    program: "Coach Jithu Fitness Coaching",
+    program: "Coach Jithu's Fitness Target Gym & Studio",
     before: "/images/Before1.jpg",
     after: "/images/After1.jpg",
   },
@@ -205,7 +252,7 @@ const transformations = [
     name: "Transformation 02",
     result: "Before / After",
     duration: "Transformation",
-    program: "Coach Jithu Fitness Coaching",
+    program: "Coach Jithu's Fitness Target Gym & Studio",
     before: "/images/Before2.jpg",
     after: "/images/After2.jpg",
   },
@@ -213,7 +260,7 @@ const transformations = [
     name: "Transformation 03",
     result: "Before / After",
     duration: "Transformation",
-    program: "Coach Jithu Fitness Coaching",
+    program: "Coach Jithu's Fitness Target Gym & Studio",
     before: "/images/Before3.jpeg",
     after: "/images/After3.jpeg",
   },
@@ -221,7 +268,7 @@ const transformations = [
     name: "Transformation 04",
     result: "Before / After",
     duration: "Transformation",
-    program: "Coach Jithu Fitness Coaching",
+    program: "Coach Jithu's Fitness Target Gym & Studio",
     before: "/images/Before4.jpeg",
     after: "/images/After4.jpeg",
   },
@@ -229,7 +276,7 @@ const transformations = [
     name: "Transformation 05",
     result: "Before / After",
     duration: "Transformation",
-    program: "Coach Jithu Fitness Coaching",
+    program: "Coach Jithu's Fitness Target Gym & Studio",
     before: "/images/Before5.jpeg",
     after: "/images/After5.jpeg",
   },
@@ -237,7 +284,7 @@ const transformations = [
     name: "Transformation 06",
     result: "Before / After",
     duration: "Transformation",
-    program: "Coach Jithu Fitness Coaching",
+    program: "Coach Jithu's Fitness Target Gym & Studio",
     before: "/images/Before6.jpg",
     after: "/images/After6.jpg",
   },
@@ -245,7 +292,7 @@ const transformations = [
     name: "Transformation 07",
     result: "Before / After",
     duration: "Transformation",
-    program: "Coach Jithu Fitness Coaching",
+    program: "Coach Jithu's Fitness Target Gym & Studio",
     before: "/images/Before7.jpeg",
     after: "/images/After7.jpeg",
   },
@@ -253,7 +300,7 @@ const transformations = [
     name: "Transformation 08",
     result: "Before / After",
     duration: "Transformation",
-    program: "Coach Jithu Fitness Coaching",
+    program: "Coach Jithu's Fitness Target Gym & Studio",
     before: "/images/Before8.jpeg",
     after: "/images/After8.jpeg",
   },
@@ -261,7 +308,7 @@ const transformations = [
     name: "Transformation 10",
     result: "Before / After",
     duration: "Transformation",
-    program: "Coach Jithu Fitness Coaching",
+    program: "Coach Jithu's Fitness Target Gym & Studio",
     before: "/images/Before10.jpeg",
     after: "/images/After10.jpg",
   },
@@ -269,7 +316,7 @@ const transformations = [
     name: "Transformation 11",
     result: "Before / After",
     duration: "Transformation",
-    program: "Coach Jithu Fitness Coaching",
+    program: "Coach Jithu's Fitness Target Gym & Studio",
     before: "/images/Before11.jpeg",
     after: "/images/After11.jpg",
   },
@@ -277,7 +324,7 @@ const transformations = [
     name: "Transformation 12",
     result: "Before / After",
     duration: "Transformation",
-    program: "Coach Jithu Fitness Coaching",
+    program: "Coach Jithu's Fitness Target Gym & Studio",
     before: "/images/Before12.jpg",
     after: "/images/After12.jpg",
   },
@@ -285,7 +332,7 @@ const transformations = [
     name: "Transformation 13",
     result: "Before / After",
     duration: "Transformation",
-    program: "Coach Jithu Fitness Coaching",
+    program: "Coach Jithu's Fitness Target Gym & Studio",
     before: "/images/Before13.jpeg",
     after: "/images/After13.jpeg",
   },
@@ -341,7 +388,7 @@ const reviews = [
     name: "Abhirami Rajeev",
     meta: "Local Guide · 11 reviews",
     time: "a year ago",
-    text: "Working in a private bank, my degrading health has always been a concern. Regularly going to the gym was therefore not an option for me. Finally I came to know about the possibilities of online training from Coach Jithus. They've given me all the needful information about the programme. Initially I was doubtful and tensed about the diet plan but they provided proper calorie deficit diet without tiredness or sleepiness. It's my 7th month of training. Their workout plan and nutritional advice is commendable.They are always available on whatsapp for doubt clearance. Day to day tracking of food, workout etc are done by them. Thankyou Coach Jithu for this extraordinary approach from you..🧡",
+    text: "Working in a private bank, my degrading health has always been a concern. Regularly going to the gym was therefore not an option for me. Finally I came to know about the possibilities of online training from Coach Jithu's Fitness Target Gym & Studio. They've given me all the needful information about the programme. Initially I was doubtful and tensed about the diet plan but they provided proper calorie deficit diet without tiredness or sleepiness. It's my 7th month of training. Their workout plan and nutritional advice is commendable.They are always available on whatsapp for doubt clearance. Day to day tracking of food, workout etc are done by them. Thankyou Coach Jithu for this extraordinary approach from you..🧡",
   },
   {
     initials: "A",
@@ -1101,10 +1148,131 @@ export default function Page() {
           margin-top: 18px;
         }
 
+        /* DIETITIAN CONSULTATION */
+        .dietitian-grid {
+          display: grid;
+          gap: 12px;
+        }
+
+        .dietitian-card {
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          border: 1px solid var(--line);
+          border-radius: 8px;
+          background: #0b0b0b;
+        }
+
+        .dietitian-card.recommended {
+          border-color: rgba(255, 217, 0, 0.72);
+        }
+
+        .dietitian-image-wrap {
+          position: relative;
+          aspect-ratio: 1.35 / 1;
+          overflow: hidden;
+          background: #111;
+        }
+
+        .dietitian-image {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+        }
+
+        .dietitian-badge {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          padding: 7px 9px;
+          border-radius: 4px;
+          background: var(--yellow);
+          color: #050505;
+          font-size: 9px;
+          line-height: 1;
+          font-weight: 950;
+          text-transform: uppercase;
+        }
+
+        .dietitian-body {
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          min-height: 260px;
+          padding: 20px 17px 18px;
+        }
+
+        .dietitian-title {
+          margin: 0;
+          max-width: 280px;
+          font-size: 21px;
+          line-height: 1;
+          letter-spacing: -0.035em;
+          font-weight: 950;
+          text-transform: uppercase;
+        }
+
+        .dietitian-price {
+          margin: 8px 0 16px;
+          color: var(--yellow);
+          font-size: 22px;
+          font-weight: 950;
+        }
+
+        .dietitian-features {
+          display: grid;
+          gap: 8px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        .dietitian-feature {
+          display: grid;
+          grid-template-columns: 17px 1fr;
+          gap: 7px;
+          align-items: start;
+          color: #d7d7d0;
+          font-size: 12px;
+          line-height: 1.42;
+        }
+
+        .dietitian-feature svg {
+          width: 15px;
+          height: 15px;
+          margin-top: 1px;
+          color: var(--yellow);
+        }
+
+        .dietitian-body > .button {
+          width: 100%;
+          margin-top: auto;
+          padding-inline: 14px;
+        }
+
         /* GYM MEMBERSHIP */
         .gym-grid {
           display: grid;
           gap: 12px;
+        }
+
+        .gym-image-wrap {
+          position: relative;
+          width: calc(100% + 36px);
+          margin: -18px -18px 18px;
+          aspect-ratio: 1.55 / 1;
+          overflow: hidden;
+          border-bottom: 1px solid var(--line);
+          background: #111;
+        }
+
+        .gym-image {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
         }
 
         .gym-card {
@@ -1760,6 +1928,11 @@ export default function Page() {
             border-radius: 6px;
           }
 
+          .dietitian-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+          }
+
           .gym-grid {
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 14px;
@@ -1767,6 +1940,10 @@ export default function Page() {
 
           .gym-card {
             min-height: 100%;
+          }
+
+          .gym-image-wrap {
+            aspect-ratio: 1.7 / 1;
           }
 
           .slider-controls {
@@ -2207,7 +2384,7 @@ export default function Page() {
       <section className="photo-gallery" aria-label="Coach Jithu photo gallery">
         <div className="container photo-gallery-head">
           <div className="photo-gallery-head-row">
-            <p className="eyebrow yellow">Coach Jithu Gym</p>
+            <p className="eyebrow yellow">Coach Jithu&apos;s fitness target gym & studio</p>
             <a
               className="button outline gym-map-button"
               href="https://share.google/ApWDdKE7zMXj1xwTx"
@@ -2353,13 +2530,78 @@ export default function Page() {
                     ))}
                   </ul>
 
-                  <a className="button" href="#contact">
+                  <a
+                    className="button"
+                    href={whatsappLink(program.whatsappMessage)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Join This Program <ArrowRight size={15} />
                   </a>
                 </div>
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* DIETITIAN CONSULTATION & DIET PLANS */}
+      <section id="dietitian" className="soft-section">
+        <div className="container">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow yellow">Dietitian Consultation</p>
+              <h2 className="section-title">
+                Nutrition Support.
+                <br />
+                Built Around You.
+              </h2>
+              <p className="section-copy">
+                Choose a consultation or a personalised diet plan based on your goals,
+                food preferences and lifestyle.
+              </p>
+            </div>
+          </div>
+
+          <div className="dietitian-grid">
+            {dietitianCards.map((plan) => (
+              <article className={`dietitian-card ${plan.highlight ? "recommended" : ""}`} key={plan.title}>
+                <div className="dietitian-image-wrap">
+                  <img
+                    className="dietitian-image"
+                    src={plan.image}
+                    alt={`${plan.title} dietitian service`}
+                    loading="lazy"
+                  />
+                  {plan.highlight ? <span className="dietitian-badge">{plan.highlight}</span> : null}
+                </div>
+
+                <div className="dietitian-body">
+                  <h3 className="dietitian-title">{plan.title}</h3>
+                  <p className="dietitian-price">{plan.price}</p>
+
+                  <ul className="dietitian-features">
+                    {plan.features.map((feature) => (
+                      <li className="dietitian-feature" key={feature}>
+                        <Check aria-hidden="true" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <a
+                    className="button"
+                    href={whatsappLink(plan.whatsappMessage)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Book This Package <ArrowRight size={15} />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
         </div>
       </section>
 
@@ -2387,6 +2629,15 @@ export default function Page() {
                 className={`gym-card ${plan.highlight === "Most Popular" ? "popular" : ""}`}
                 key={plan.title}
               >
+                <div className="gym-image-wrap">
+                  <img
+                    className="gym-image"
+                    src={plan.image}
+                    alt={`${plan.title} at Coach Jithu's Fitness Target Gym & Studio`}
+                    loading="lazy"
+                  />
+                </div>
+
                 <div className="gym-card-top">
                   <div>
                     <h3 className="gym-card-title">{plan.title}</h3>
