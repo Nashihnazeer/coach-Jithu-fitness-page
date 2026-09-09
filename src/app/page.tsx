@@ -379,6 +379,24 @@ export default function Page() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showAllTransformations, setShowAllTransformations] = useState(false);
+  const mobileMenuRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target as Node | null;
+      const menuPanel = mobileMenuRef.current;
+      const menuButton = document.querySelector(".mobile-menu");
+
+      if (target && !menuPanel?.contains(target) && !menuButton?.contains(target)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     const scroller = galleryScroller.current;
@@ -639,6 +657,21 @@ export default function Page() {
           color: white;
           text-decoration: none;
           line-height: 0.9;
+        }
+
+        .brand-logo {
+          display: flex;
+          align-items: center;
+          height: 46px;
+          flex: 0 0 auto;
+        }
+
+        .brand-logo-image {
+          display: block;
+          width: auto;
+          height: 42px;
+          max-width: 180px;
+          object-fit: contain;
         }
 
         .brand-name {
@@ -1322,6 +1355,7 @@ export default function Page() {
 
         .step-card h3 {
           margin: 0;
+          color: var(--yellow);
           font-size: 16px;
           line-height: 1.05;
           font-weight: 950;
@@ -1832,6 +1866,15 @@ export default function Page() {
             gap: 8px;
           }
 
+          .brand-logo {
+            height: 42px;
+          }
+
+          .brand-logo-image {
+            height: 36px;
+            max-width: 150px;
+          }
+
           .header .button {
             min-height: 40px;
             padding: 0 12px;
@@ -2059,11 +2102,12 @@ export default function Page() {
 
       <header className="header">
         <div className="container header-inner">
-          <a className="brand" href="#home" aria-label="Coach Jithu home">
-            <span className="brand-name">
-              COACH <span>JITHU</span>
-            </span>
-            <span className="brand-tag">Train Better · Live Stronger</span>
+          <a className="brand brand-logo" href="#home" aria-label="Coach Jithu home">
+            <img
+              className="brand-logo-image"
+              src="/images/coachjithulogo.jpeg"
+              alt="Coach Jithu"
+            />
           </a>
 
           <nav className="desktop-nav" aria-label="Primary navigation">
@@ -2103,6 +2147,7 @@ export default function Page() {
       </header>
 
       <nav
+        ref={mobileMenuRef}
         id="mobile-navigation"
         className={`mobile-menu-panel ${mobileMenuOpen ? "open" : ""}`}
         aria-label="Mobile navigation"
