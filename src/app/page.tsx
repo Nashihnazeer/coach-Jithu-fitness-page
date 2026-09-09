@@ -168,7 +168,9 @@ const dietitianCards = [
 const gymMembershipCards = [
   {
     title: "Basic Package",
-    image: "/images/FINA8017.JPG.jpeg",
+    image: "/images/Basicgympackage.png",
+    whatsappMessage:
+      "Hi Coach Jithu, I’m interested in the Basic Gym Membership Package priced at ₹1,000 without cardio / ₹2,000 with cardio. Please share the next steps.",
     pricing: "₹1,000 without cardio / ₹2,000 with cardio",
     highlight: "Best choice for affordable gym access",
     subtitle: "Gym Access & Guidance",
@@ -183,7 +185,9 @@ const gymMembershipCards = [
   },
   {
     title: "Standard Package",
-    image: "/images/FINA8018.JPG.jpeg",
+    image: "/images/Standardgympackage.png",
+    whatsappMessage:
+      "Hi Coach Jithu, I’m interested in the Standard Gym Membership Package priced at ₹2,000 without cardio / ₹2,500 with cardio. Please share the next steps.",
     pricing: "₹2,000 without cardio / ₹2,500 with cardio",
     highlight: "Most Popular",
     subtitle: "Trainer Supervision",
@@ -201,7 +205,9 @@ const gymMembershipCards = [
   },
   {
     title: "Premium Package",
-    image: "/images/FINA8019.JPG.jpeg",
+    image: "/images/premiumgympackage.png",
+    whatsappMessage:
+      "Hi Coach Jithu, I’m interested in the Premium Gym Membership Package priced at ₹2,800 without cardio / ₹3,300 with cardio. Please share the next steps.",
     pricing: "₹2,800 without cardio / ₹3,300 with cardio",
     highlight: "Result-focused complete package",
     subtitle: "Workout & Diet Plan",
@@ -1262,7 +1268,7 @@ export default function Page() {
           position: relative;
           width: calc(100% + 36px);
           margin: -18px -18px 18px;
-          aspect-ratio: 1.55 / 1;
+          aspect-ratio: 16 / 9;
           overflow: hidden;
           border-bottom: 1px solid var(--line);
           background: #111;
@@ -1341,6 +1347,11 @@ export default function Page() {
           margin: 0;
           padding: 0;
           list-style: none;
+        }
+
+        .gym-book-button {
+          width: 100%;
+          margin-top: 18px;
         }
 
         .gym-feature {
@@ -1943,7 +1954,7 @@ export default function Page() {
           }
 
           .gym-image-wrap {
-            aspect-ratio: 1.7 / 1;
+            aspect-ratio: 16 / 9;
           }
 
           .slider-controls {
@@ -2656,6 +2667,15 @@ export default function Page() {
                     </li>
                   ))}
                 </ul>
+
+                <a
+                  className="button gym-book-button"
+                  href={whatsappLink(plan.whatsappMessage)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Join This Package <ArrowRight size={15} />
+                </a>
               </article>
             ))}
           </div>
