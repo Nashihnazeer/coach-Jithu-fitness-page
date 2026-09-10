@@ -1924,11 +1924,11 @@ export default function Page() {
           .hero-person-picture {
             position: absolute;
             z-index: 1;
-            top: 25svh;
-            right: 7.52vw;
+            top: 28svh;
+            right: 10vw;
             bottom: auto;
-            width: 560px;
-            height: min(742px, calc(75svh - 40px));
+            width: 600px;
+            height: min(795px, calc(72svh - 40px));
             min-height: 0;
             overflow: visible;
             pointer-events: none;
@@ -1941,7 +1941,7 @@ export default function Page() {
             height: 100%;
             max-width: 100%;
             max-height: 100%;
-            aspect-ratio: 560 / 742;
+            aspect-ratio: 600 / 795;
             object-fit: contain;
             object-position: top right;
           }
@@ -2080,11 +2080,11 @@ export default function Page() {
            * heights still take priority so the complete person remains visible.
            */
           .hero-person-picture {
-            top: 25svh;
-            right: 32px;
+            top: 28svh;
+            right: 52px;
             bottom: auto;
-            width: 450px;
-            height: min(607px, calc(75svh - 40px));
+            width: 480px;
+            height: min(648px, calc(72svh - 40px));
             overflow: visible;
           }
 
@@ -2093,7 +2093,7 @@ export default function Page() {
             height: 100%;
             max-width: 100%;
             max-height: 100%;
-            aspect-ratio: 450 / 607;
+            aspect-ratio: 480 / 648;
             object-fit: contain;
             object-position: top right;
           }
