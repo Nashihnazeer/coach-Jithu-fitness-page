@@ -43,7 +43,7 @@ const whatsappLink = (message: string) =>
 
 
 /**
- * Coach Jithu — single-page responsive landing page
+ * Coach Jithu — single-page responsive landing page 11
  * -------------------------------------------------
  * Next.js App Router / React / TypeScript
  *
