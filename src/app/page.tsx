@@ -1911,11 +1911,50 @@ export default function Page() {
             align-items: center;
           }
 
+          /*
+           * Desktop hero image
+           * ------------------
+           * IMPORTANT: do not use fixed px dimensions here.
+           *
+           * Browser zoom changes the CSS viewport size. A fixed 460px image
+           * therefore becomes physically larger when the page is zoomed in,
+           * which is exactly what caused the coach to be cropped.
+           *
+           * vw is used deliberately here as a zoom-compensation mechanism:
+           * when browser zoom increases, the CSS viewport becomes narrower,
+           * so the image's CSS width decreases by the same factor that the
+           * browser zoom increases it. The rendered coach therefore stays at
+           * essentially the same physical size and right offset.
+           *
+           * The PNG itself is never stretched or cropped.
+           */
           .hero-person-picture {
-            right: 10%;
-            bottom: 3%;
-            width: min(46vw, 590px);
-            height: 89%;
+            /*
+             * Desktop zoom-stable sizing.
+             *
+             * The coach is intentionally larger at 100% than the previous
+             * version. The vw values compensate for browser zoom: as zoom
+             * increases, the CSS viewport becomes smaller by the same factor,
+             * keeping the rendered coach at essentially the same physical size.
+             */
+            position: absolute;
+            right: 7.52vw;
+            bottom: 0;
+            width: 32.41vw;
+            height: auto;
+            aspect-ratio: 560 / 742;
+            overflow: visible;
+          }
+
+          .hero-person {
+            display: block;
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            max-height: none;
+            aspect-ratio: 560 / 742;
+            object-fit: contain;
+            object-position: top right;
           }
 
           .hero-content {
@@ -2044,6 +2083,87 @@ export default function Page() {
         }
 
         /* MOBILE FLOATING NAV */
+        /* COMPACT DESKTOP / TABLET */
+        @media (min-width: 900px) and (max-width: 1199px) {
+          /*
+           * Same zoom-compensation principle as desktop, with a smaller
+           * composition for the 900–1199px range.
+           */
+          .hero-person-picture {
+            right: 2.71vw;
+            bottom: 0;
+            width: 43.95vw;
+            height: auto;
+            aspect-ratio: 450 / 607;
+            overflow: visible;
+          }
+
+          .hero-person {
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            max-height: none;
+            aspect-ratio: 450 / 607;
+            object-fit: contain;
+            object-position: top right;
+          }
+
+          .hero-copy {
+            max-width: 470px;
+          }
+        }
+
+        /*
+         * Tablet landscape (640–899px)
+         * Keep the coach image constrained to a stable composition rather
+         * than allowing it to become a percentage-height image.
+         */
+        @media (min-width: 640px) and (max-width: 899px) {
+          .hero {
+            min-height: 820px;
+            align-items: center;
+          }
+
+          .hero-person-picture {
+            right: 3.2vw;
+            left: auto;
+            top: 110px;
+            bottom: auto;
+            width: 45vw;
+            height: auto;
+            aspect-ratio: 390 / 530;
+            transform: none;
+            overflow: visible;
+          }
+
+          .hero-person {
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            max-height: none;
+            aspect-ratio: 390 / 530;
+            object-fit: contain;
+            object-position: top right;
+          }
+
+          .hero-content {
+            padding-top: 120px;
+            padding-bottom: 55px;
+          }
+
+          .hero-copy {
+            max-width: 430px;
+          }
+
+          .hero-title {
+            font-size: clamp(48px, 7vw, 64px);
+          }
+
+          .hero-text {
+            max-width: 390px;
+          }
+        }
+
         @media (max-width: 639px) {
 .header {
             top: 10px;
@@ -2360,7 +2480,7 @@ export default function Page() {
         <picture className="hero-person-picture">
           <source
             media="(min-width: 900px)"
-            srcSet="/images/CoachJithudesktop.png"
+            srcSet="/images/CoachJithumobile.png"
           />
           <img
             className="hero-person"
