@@ -1921,14 +1921,14 @@ export default function Page() {
            * safe area. On short laptop screens the image therefore shrinks
            * smoothly instead of growing into the navigation or being clipped.
            */
-          .hero-person-picture {
+                    .hero-person-picture {
             position: absolute;
             z-index: 1;
-            top: 28svh;
+            top: 90px;
             right: 10vw;
             bottom: auto;
-            width: 600px;
-            height: min(795px, calc(72svh - 40px));
+            width: 560px;
+            height: 742px;
             min-height: 0;
             overflow: visible;
             pointer-events: none;
@@ -1939,8 +1939,8 @@ export default function Page() {
             display: block;
             width: 100%;
             height: 100%;
-            max-width: 100%;
-            max-height: 100%;
+            max-width: none;
+            max-height: none;
             aspect-ratio: 600 / 795;
             object-fit: contain;
             object-position: top right;
@@ -2079,24 +2079,6 @@ export default function Page() {
            * The image gets a smaller intended maximum, while short viewport
            * heights still take priority so the complete person remains visible.
            */
-          .hero-person-picture {
-            top: 28svh;
-            right: 52px;
-            bottom: auto;
-            width: 480px;
-            height: min(648px, calc(72svh - 40px));
-            overflow: visible;
-          }
-
-          .hero-person {
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-            max-height: 100%;
-            aspect-ratio: 480 / 648;
-            object-fit: contain;
-            object-position: top right;
-          }
 
           .hero-copy {
             max-width: 470px;
