@@ -1909,49 +1909,38 @@ export default function Page() {
             height: 100svh;
             min-height: 0;
             align-items: center;
+            overflow: visible;
           }
 
           /*
-           * Desktop hero image
-           * ------------------
-           * IMPORTANT: do not use fixed px dimensions here.
-           *
-           * Browser zoom changes the CSS viewport size. A fixed 460px image
-           * therefore becomes physically larger when the page is zoomed in,
-           * which is exactly what caused the coach to be cropped.
-           *
-           * vw is used deliberately here as a zoom-compensation mechanism:
-           * when browser zoom increases, the CSS viewport becomes narrower,
-           * so the image's CSS width decreases by the same factor that the
-           * browser zoom increases it. The rendered coach therefore stays at
-           * essentially the same physical size and right offset.
-           *
-           * The PNG itself is never stretched or cropped.
+           * Desktop hero image safe area
+           * -----------------------------
+           * The coach is sized from the AVAILABLE HERO HEIGHT, not viewport
+           * width. The first ~25% of the hero is reserved as a clear zone
+           * below the floating navigation. The remaining height is the image
+           * safe area. On short laptop screens the image therefore shrinks
+           * smoothly instead of growing into the navigation or being clipped.
            */
           .hero-person-picture {
-            /*
-             * Desktop zoom-stable sizing.
-             *
-             * The coach is intentionally larger at 100% than the previous
-             * version. The vw values compensate for browser zoom: as zoom
-             * increases, the CSS viewport becomes smaller by the same factor,
-             * keeping the rendered coach at essentially the same physical size.
-             */
             position: absolute;
+            z-index: 1;
+            top: 25svh;
             right: 7.52vw;
-            bottom: 0;
-            width: 32.41vw;
-            height: auto;
-            aspect-ratio: 560 / 742;
+            bottom: auto;
+            width: 560px;
+            height: min(742px, calc(75svh - 40px));
+            min-height: 0;
             overflow: visible;
+            pointer-events: none;
+            user-select: none;
           }
 
           .hero-person {
             display: block;
             width: 100%;
             height: 100%;
-            max-width: none;
-            max-height: none;
+            max-width: 100%;
+            max-height: 100%;
             aspect-ratio: 560 / 742;
             object-fit: contain;
             object-position: top right;
@@ -2086,23 +2075,24 @@ export default function Page() {
         /* COMPACT DESKTOP / TABLET */
         @media (min-width: 900px) and (max-width: 1199px) {
           /*
-           * Same zoom-compensation principle as desktop, with a smaller
-           * composition for the 900–1199px range.
+           * Compact desktop: use the same height-driven safe-area model.
+           * The image gets a smaller intended maximum, while short viewport
+           * heights still take priority so the complete person remains visible.
            */
           .hero-person-picture {
-            right: 2.71vw;
-            bottom: 0;
-            width: 43.95vw;
-            height: auto;
-            aspect-ratio: 450 / 607;
+            top: 25svh;
+            right: 32px;
+            bottom: auto;
+            width: 450px;
+            height: min(607px, calc(75svh - 40px));
             overflow: visible;
           }
 
           .hero-person {
             width: 100%;
             height: 100%;
-            max-width: none;
-            max-height: none;
+            max-width: 100%;
+            max-height: 100%;
             aspect-ratio: 450 / 607;
             object-fit: contain;
             object-position: top right;
@@ -2122,15 +2112,17 @@ export default function Page() {
           .hero {
             min-height: 820px;
             align-items: center;
+            overflow: visible;
           }
 
           .hero-person-picture {
-            right: 3.2vw;
+            right: 32px;
             left: auto;
-            top: 110px;
+            top: 25%;
             bottom: auto;
-            width: 45vw;
-            height: auto;
+            width: 390px;
+            height: min(530px, calc(75% - 40px));
+            max-height: calc(75% - 40px);
             aspect-ratio: 390 / 530;
             transform: none;
             overflow: visible;
