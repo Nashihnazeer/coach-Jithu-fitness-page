@@ -121,16 +121,19 @@ const programCards = [
 
 const dietitianCards = [
   {
-    title: "Consultation Only",
-    price: "₹499",
+    title: "COACH CONSULTATION",
+    price: "Consultation Fee: ₹499",
     whatsappMessage:
-      "Hi Coach Jithu, I’m interested in the Consultation Only dietitian package priced at ₹499. Please share the booking details.",
+      "Hi Coach Jithu, I’m interested in the Coach Consultation priced at ₹499. Please share the booking details.",
     image: "/images/IMG-20260708-WA0009.jpeg",
     features: [
-      "30–45 minute 1-on-1 consultation",
-      "Nutrition & lifestyle assessment",
-      "Goal setting",
-      "Basic nutrition recommendations",
+      "Personalised Fitness Consultation with Coach Jithu",
+      "Goal Assessment",
+      "Workout Guidance",
+      "Fitness Strategy",
+      "Lifestyle Guidance",
+      "Personalised Recommendations",
+      "30-Minute 1-on-1 Consultation",
     ],
   },
   {
@@ -233,9 +236,9 @@ const heroGalleryPhotos = [
   "FINA8045.JPG.jpeg",
   "FINA8046.JPG.jpeg",
   "FINA8051.JPG.jpeg",
-  "WhatsApp Image 2026-0...at.jpeg",
-  "WhatsApp Image 2026-0...PM.jpeg",
-  "WhatsApp Image 2026-0...02.jpeg",
+  "WhatsApp Image 2026-09-09 at .jpeg",
+  "WhatsApp Image 2026-09-09 at 11.02.05 PM.jpeg",
+  "WhatsApp Image 2026-09-09 at 11.02.jpeg",
 ];
 
 const transformations = [
@@ -244,64 +247,64 @@ const transformations = [
     result: "Before / After",
     duration: "Transformation",
     program: "Coach Jithu's Fitness Target Gym & Studio",
-    before: "/images/Before1.jpg",
-    after: "/images/After1.jpg",
+    before: "/images/Before1.png",
+    after: "/images/After1.png",
   },
   {
     name: "Transformation 02",
     result: "Before / After",
     duration: "Transformation",
     program: "Coach Jithu's Fitness Target Gym & Studio",
-    before: "/images/Before2.jpg",
-    after: "/images/After2.jpg",
+    before: "/images/Before2.png",
+    after: "/images/After2.png",
   },
   {
     name: "Transformation 03",
     result: "Before / After",
     duration: "Transformation",
     program: "Coach Jithu's Fitness Target Gym & Studio",
-    before: "/images/Before3.jpeg",
-    after: "/images/After3.jpeg",
+    before: "/images/Before3.png",
+    after: "/images/After3.png",
   },
   {
     name: "Transformation 04",
     result: "Before / After",
     duration: "Transformation",
     program: "Coach Jithu's Fitness Target Gym & Studio",
-    before: "/images/Before4.jpeg",
-    after: "/images/After4.jpeg",
+    before: "/images/Before4.png",
+    after: "/images/After4.png",
   },
   {
     name: "Transformation 05",
     result: "Before / After",
     duration: "Transformation",
     program: "Coach Jithu's Fitness Target Gym & Studio",
-    before: "/images/Before5.jpeg",
-    after: "/images/After5.jpeg",
+    before: "/images/Before5.png",
+    after: "/images/After5.png",
   },
   {
     name: "Transformation 06",
     result: "Before / After",
     duration: "Transformation",
     program: "Coach Jithu's Fitness Target Gym & Studio",
-    before: "/images/Before6.jpg",
-    after: "/images/After6.jpg",
+    before: "/images/Before6.png",
+    after: "/images/After6.png",
   },
   {
     name: "Transformation 07",
     result: "Before / After",
     duration: "Transformation",
     program: "Coach Jithu's Fitness Target Gym & Studio",
-    before: "/images/Before7.jpeg",
-    after: "/images/After7.jpeg",
+    before: "/images/Before7.png",
+    after: "/images/After7.png",
   },
   {
     name: "Transformation 08",
     result: "Before / After",
     duration: "Transformation",
     program: "Coach Jithu's Fitness Target Gym & Studio",
-    before: "/images/Before8.jpeg",
-    after: "/images/After8.jpeg",
+    before: "/images/Before8.png",
+    after: "/images/After8.png",
   },
   {
     name: "Transformation 10",
@@ -316,24 +319,32 @@ const transformations = [
     result: "Before / After",
     duration: "Transformation",
     program: "Coach Jithu's Fitness Target Gym & Studio",
-    before: "/images/Before11.jpeg",
-    after: "/images/After11.jpg",
+    before: "/images/Before11.png",
+    after: "/images/After11.png",
   },
   {
     name: "Transformation 12",
     result: "Before / After",
     duration: "Transformation",
     program: "Coach Jithu's Fitness Target Gym & Studio",
-    before: "/images/Before12.jpg",
-    after: "/images/After12.jpg",
+    before: "/images/Before12.png",
+    after: "/images/After12.png",
   },
   {
     name: "Transformation 13",
     result: "Before / After",
     duration: "Transformation",
     program: "Coach Jithu's Fitness Target Gym & Studio",
-    before: "/images/Before13.jpeg",
-    after: "/images/After13.jpeg",
+    before: "/images/Before13.png",
+    after: "/images/After13.png",
+  },
+  {
+    name: "Transformation 14",
+    result: "Before / After",
+    duration: "Transformation",
+    program: "Coach Jithu's Fitness Target Gym & Studio",
+    before: "/images/Before14.png",
+    after: "/images/After14.png",
   },
 ];
 
@@ -526,6 +537,50 @@ export default function Page() {
       }
       galleryFrameRef.current = null;
       galleryLastTimeRef.current = 0;
+    };
+  }, []);
+
+  useEffect(() => {
+    const scroller = galleryScroller.current;
+    if (!scroller) return;
+
+    let isDragging = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (event.pointerType === "touch") return;
+      isDragging = true;
+      startX = event.clientX;
+      startScrollLeft = scroller.scrollLeft;
+      scroller.setPointerCapture?.(event.pointerId);
+      scroller.style.cursor = "grabbing";
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      if (!isDragging) return;
+      event.preventDefault();
+      scroller.scrollLeft = startScrollLeft - (event.clientX - startX);
+    };
+
+    const stopDragging = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      scroller.style.cursor = "grab";
+    };
+
+    scroller.addEventListener("pointerdown", handlePointerDown);
+    scroller.addEventListener("pointermove", handlePointerMove);
+    scroller.addEventListener("pointerup", stopDragging);
+    scroller.addEventListener("pointercancel", stopDragging);
+    scroller.addEventListener("lostpointercapture", stopDragging);
+
+    return () => {
+      scroller.removeEventListener("pointerdown", handlePointerDown);
+      scroller.removeEventListener("pointermove", handlePointerMove);
+      scroller.removeEventListener("pointerup", stopDragging);
+      scroller.removeEventListener("pointercancel", stopDragging);
+      scroller.removeEventListener("lostpointercapture", stopDragging);
     };
   }, []);
 
@@ -1043,10 +1098,37 @@ export default function Page() {
           color: #c7aa00;
         }
 
-        /* COACH JITHU PHOTO GALLERY */
+        /* COACH JITHU GYM PHOTO GALLERY */
         .photo-gallery {
           overflow: hidden;
           background: #070707;
+          padding: 72px 0 0;
+        }
+
+        .photo-gallery-head {
+          padding-bottom: 10px;
+        }
+
+        .photo-gallery-head-row {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 28px;
+        }
+
+        .photo-gallery-title {
+          margin: 0;
+          max-width: 760px;
+          color: var(--yellow);
+          font-size: clamp(28px, 4vw, 50px);
+          line-height: 0.98;
+          letter-spacing: -0.045em;
+          font-weight: 950;
+        }
+
+        .gym-map-button {
+          flex: 0 0 auto;
+          white-space: nowrap;
         }
 
         .photo-gallery-track {
@@ -1909,7 +1991,7 @@ export default function Page() {
             height: 100svh;
             min-height: 0;
             align-items: center;
-            overflow: visible;
+            overflow: hidden;
           }
 
           /*
@@ -2177,8 +2259,19 @@ export default function Page() {
         }
 
         @media (max-width: 899px) {
+          .photo-gallery {
+            padding-top: 58px;
+          }
+
           .photo-gallery-head-row {
             align-items: flex-start;
+            flex-direction: column;
+            gap: 20px;
+          }
+
+          .photo-gallery-title {
+            max-width: 620px;
+            font-size: clamp(28px, 8vw, 42px);
           }
 
           .gym-map-button {
@@ -2502,12 +2595,26 @@ export default function Page() {
         </div>
       </section>
 
-      {/* COACH JITHU PHOTO GALLERY — 30 PHOTOS */}
-      <section className="photo-gallery" aria-label="Coach Jithu photo gallery">
+      {/* COACH JITHU FITNESS TARGET GYM & STUDIO */}
+      <section className="photo-gallery" aria-label="Coach Jithu's fitness target gym and studio">
+        <div className="container photo-gallery-head">
+          <div className="photo-gallery-head-row">
+            <h2 className="photo-gallery-title">Coach jithu&apos;s fitness target gym &amp; studio</h2>
+            <a
+              className="button outline gym-map-button"
+              href="https://share.google/ApWDdKE7zMXj1xwTx"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on Google Map <ArrowRight size={14} />
+            </a>
+          </div>
+        </div>
+
         <div
           ref={galleryScroller}
           className="photo-gallery-track"
-          aria-label="Coach Jithu photo carousel"
+          aria-label="Coach Jithu gym photo carousel"
         >
           {heroGalleryPhotos.map((photo, index) => (
             <article
@@ -2659,15 +2766,8 @@ export default function Page() {
           <div className="section-head">
             <div>
               <p className="eyebrow yellow">Fitness Consultation</p>
-              <h2 className="section-title">
-                Nutrition Support.
-                <br />
-                Built Around You.
-              </h2>
-              <p className="section-copy">
-                Choose a consultation or a personalised diet plan based on your goals,
-                food preferences and lifestyle.
-              </p>
+              <h2 className="section-title">FITNESS &amp; NUTRITION SUPPORT</h2>
+              <p className="section-copy">Choose a fitness consultation or a personalized diet plan based on your goals,food preference,lifestyle</p>
             </div>
           </div>
 
@@ -2973,11 +3073,12 @@ export default function Page() {
         <div className="container">
           <div className="footer-grid">
             <div className="footer-brand">
-              <a className="brand" href="#home">
-                <span className="brand-name">
-                  COACH <span>JITHU</span>
-                </span>
-                <span className="brand-tag">Train Better · Live Stronger</span>
+              <a className="brand brand-logo" href="#home" aria-label="Coach Jithu home">
+                <img
+                  className="brand-logo-image"
+                  src="/images/coachjithulogo.PNG"
+                  alt="Coach Jithu"
+                />
               </a>
             </div>
 
