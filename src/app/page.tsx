@@ -2006,11 +2006,11 @@ export default function Page() {
                     .hero-person-picture {
             position: absolute;
             z-index: 1;
-            top: 90px;
+            top: 170px;
             right: 10vw;
             bottom: auto;
-            width: 560px;
-            height: 742px;
+            width: 680px;
+            height: 901px;
             min-height: 0;
             overflow: visible;
             pointer-events: none;
@@ -2328,9 +2328,9 @@ export default function Page() {
           .hero-person-picture {
             left: 50%;
             right: auto;
-            top: 70px;
+            top: 160px;
             bottom: auto;
-            width: min(84vw, 360px);
+            width: min(100vw, 440px);
             max-width: none;
             height: auto;
             transform: translateX(-50%);
@@ -2547,11 +2547,11 @@ export default function Page() {
         <picture className="hero-person-picture">
           <source
             media="(min-width: 900px)"
-            srcSet="/images/CoachJithumobile.png"
+            srcSet="/images/CoachJithudesktop.png"
           />
           <img
             className="hero-person"
-            src="/images/CoachJithumobile.png"
+            src="/images/CoachJithudesktop.png"
             alt="Coach Jithu"
             draggable={false}
           />
